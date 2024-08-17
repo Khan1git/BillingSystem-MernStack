@@ -306,7 +306,7 @@ const InvoicePDF = () => {
                             </View>
                             <View style={styles.section}>
                                 <View style={styles.companyDetails}>
-                                    <Text style={styles.heading}>Company Details</Text>
+                                    {/* <Text style={styles.heading}>Company Details</Text> */}
                                     {companyData.length > 0 && (
                                         <>
                                             <Text>{companyData[0].companyName}</Text>
@@ -325,7 +325,7 @@ const InvoicePDF = () => {
                             </View>
                             <Text>Customer Name: {orderData.customer ? orderData.customer.name : ''}</Text>
                             {/* <Text>Previous Remaining Balance: {unpaidCost}</Text> */}
-                            <Text>Total Balance: {customerDetails.AccountBalance ? customerDetails.AccountBalance : ''}</Text>
+                            {/* <Text>Total Balance: {customerDetails.AccountBalance ? customerDetails.AccountBalance : ''}</Text> */}
                             {/* <Text>Payment Method: {orderData.payment ? orderData.payment : ''}</Text> */}
                             <View style={styles.table}>
                                 <View style={styles.tableRow}>

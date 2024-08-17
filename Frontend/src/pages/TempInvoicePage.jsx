@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFViewer, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import Navbar from '../componentes/Navbar';
+import logo from '../assets/logo.png'
+
 
 const styles = StyleSheet.create({
     page: {
@@ -27,19 +29,21 @@ const styles = StyleSheet.create({
         display: 'flex',
         textAlign: 'start',
         width: '100%',
+        
     },
     part2: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 10,
+        marginTop: 20
     },
     heading: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: "center",
         // fontSize: 16,
-        marginBottom: 10,
+        marginBottom: 4,
         textDecoration: 'underline',
         textAlign: 'center',
         fontSize: '10px'
@@ -99,7 +103,7 @@ const styles = StyleSheet.create({
         // fontWeight: 'bold',
         width: '22.4%',
         backgroundColor: '#edece8',
-        marginLeft: '1%',
+        marginLeft: '2%',
         marginRight: '-13%',
         textAlign: 'center',
         padding: '4px',
@@ -112,7 +116,7 @@ const styles = StyleSheet.create({
         margin: '3px',
         borderStyle: 'solid'
     },
-    cash:{
+    cash: {
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
@@ -123,18 +127,31 @@ const styles = StyleSheet.create({
         marginTop: '1px',
         // margin: "1rem"
     },
-    method:{
-        border: 1,
-        // fontWeight: 'bold',
-        width: '22.4%',
-        // backgroundColor: '#edece8',
-        marginLeft: '1%',
-        marginRight: '-13%',
+    container: {
+        flexDirection: 'row', // Align children in a row
+        alignItems: 'center', // Vertically align items
+        gap: '10rem'
+        // gap: 120, // For web (or React Native Web), you can use this. For React Native, use marginRight/marginLeft instead.
+    },
+    companyDetails: {
+        display: 'flex',
+        justifyContent: 'center',
         textAlign: 'center',
-        padding: '2px',
-    }
-});
+        width: '100%',
+        gap: 2,
+        fontStyle: 'bold',
+        // border: '1px solid red',
+        marginLeft: -30, 
+        // alignContent: 'center',
+        alignItems: 'center'
+    },
+    logo: {
+        width: 50,  // Set your desired logo width
+        height: 50, // Set your desired logo height
+        marginRight: 16, // Space between the logo and the company details
+      },
 
+});
 const numberToWords = (num) => {
     const ones = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
     const teens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
@@ -210,15 +227,22 @@ function TempInvoicePage() {
             <Document>
                 <Page size="A4" style={styles.page}>
                     <View style={styles.section}>
-                        <View style={styles.companyDetails}>
-                            <Text style={styles.heading}>Company Details</Text>
-                            {companyData.length > 0 && (
-                                <>
-                                    <Text>{companyData[0].companyName}</Text>
-                                    <Text>{companyData[0].Address}</Text>
-                                    <Text>Phone No: {companyData[0].phone}</Text>
-                                </>
-                            )}
+                    <View style={styles.container}>
+                            <View>
+                            <Image source={logo} style={styles.logo} />
+                            </View>
+                            <View style={styles.section}>
+                                <View style={styles.companyDetails}>
+                                    {/* <Text style={styles.heading}>Company Details</Text> */}
+                                    {companyData.length > 0 && (
+                                        <>
+                                            <Text>{companyData[0].companyName}</Text>
+                                            <Text>{companyData[0].Address}</Text>
+                                            <Text>Phone No: {companyData[0].phone}</Text>
+                                        </>
+                                    )}
+                                </View>
+                            </View>
                         </View>
                         <View style={styles.invoiceDetails}>
                             <View style={styles.part2}>
