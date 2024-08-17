@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
+import Navbar from '../componentes/Navbar';
 
 const styles = StyleSheet.create({
     page: {
@@ -255,10 +256,10 @@ function TempInvoicePage() {
                                 <Text style={styles.total_amount}>Total Payable (in ):</Text>
                                 <Text style={styles.price}>{TotalAmount}.00</Text>
                             </View>
-                            <View style={styles.cash}>
+                            {/* <View style={styles.cash}>
                                 <Text style={styles.total_amount}>Payment Method:</Text>
                                 <Text style={styles.method}>{payment}</Text>
-                            </View>
+                            </View> */}
                             <View style={styles.words}>
                                 <Text>Amount In Words:{numberToWords(TotalAmount)} only</Text>
                             </View>
@@ -271,6 +272,7 @@ function TempInvoicePage() {
 
     return (
         <>
+        <Navbar/>
             <PDFViewer style={{ width: '90vw', height: '100vh', backgroundColor: "black" }}>
                 {generateInvoice()}
             </PDFViewer>

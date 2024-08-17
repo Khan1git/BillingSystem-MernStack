@@ -26,6 +26,7 @@ const App = () => {
     <Router>
       <ToastContainer theme="dark" autoClose="2000" />
       <Routes>
+        {/*  */}
         <Route path="/" element={<Sidebar />} />
         <Route path="/company" element={<Company />} />
         <Route path="/invoices" element={<Invoices />} />

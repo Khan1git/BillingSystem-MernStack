@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
+import Navbar from '../componentes/Navbar'
 
 const styles = StyleSheet.create({
     page: {
@@ -335,7 +336,8 @@ const InvoicePDF = () => {
 
     return (
         <>
-            <PDFViewer style={{ width: '90vw', height: '100vh', backgroundColor: "black" }}>
+        <Navbar/>
+            <PDFViewer style={{ width: '90vw', height: '98vh', backgroundColor: "black" }}>
                 {generateInvoice()}
             </PDFViewer>
         </>

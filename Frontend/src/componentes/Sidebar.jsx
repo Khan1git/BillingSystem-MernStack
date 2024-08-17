@@ -7,7 +7,6 @@ import InvoiceTable from './InvoiceTable';
 import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 
-
 const Sidebar = () => {
 
   // ------------- SHOWING ALL CUSTOMER AND PRODUCT DATABSE -----------------------
@@ -190,7 +189,6 @@ const Sidebar = () => {
                   <th>Name</th>
                   <th>Address</th>
                   <th>Phone No</th>
-                 
                 </tr>
               </thead>
               <tbody>

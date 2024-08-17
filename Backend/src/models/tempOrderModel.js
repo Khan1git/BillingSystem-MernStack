@@ -36,7 +36,8 @@ const tempOrderSchema = new mongoose.Schema({
         default: Date.now
     },
     payment: {
-        type: String
+        type: String,
+        default: 'cash'
     }
 }, { timestamps: true })
 

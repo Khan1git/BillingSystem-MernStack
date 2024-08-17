@@ -306,7 +306,7 @@ function TemorderPage() {
                         <input type="Number" placeholder="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                         <input type="Number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
                         {/* <input type="text" placeholder="Unit" value={unit} onChange={(e) => setUnit(e.target.value)} /> */}
-                        <input type="text" placeholder="Payment Method" value={payment} onChange={((e) => setPayment(e.target.value))} />
+                        {/* <input type="text" placeholder="Payment Method" value={payment} onChange={((e) => setPayment(e.target.value))} /> */}
                         <button onClick={handleAddToTable}>Add</button>
                     </div>
                     <div class="tables">
@@ -314,14 +314,14 @@ function TemorderPage() {
                             <thead>
                                 <tr>
                                     <th>Customer Name</th>
-                                    <th>Payment Method</th>
+                                    {/* <th>Payment Method</th> */}
                                     <th>Paid</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>{name}</td>
-                                    <td>{payment}</td>
+                                    {/* <td>{payment}</td> */}
                                     <td>
                                         <input type="checkbox"
                                             className='check'
