@@ -193,7 +193,6 @@ const InvoicePDF = () => {
     const [customerInvoices, setCustomerInvoices] = useState([])
     const [unpaidInvoice, setUnpaidInvoice] = useState([])
     const [unpaidCost, setUnpaidCost] = useState(0)
-    console.log(unpaidCost)
 
 
     const ShowAllorders = async () => {
@@ -307,7 +306,7 @@ const InvoicePDF = () => {
                                         <Text style={styles.tableCell}>{prod.unit ? prod.unit : "other"}</Text>
                                         <Text style={styles.tableCell}>{prod.price}.00</Text>
                                         {/* <Text style={styles.tableCell}>{prod.discount}.00</Text> */}
-                                        {/* <Text style={styles.tableCell}>{prod.price * prod.quantity - prod.discount}.00</Text> */}
+                                        {/* <Text style={styles.tableCell}>{prod.price * prod.quantity }.00</Text> */}
                                         <Text style={styles.tableCell}>{prod.price * prod.quantity}.00</Text>
                                     </View>
                                 ))}
@@ -320,10 +319,14 @@ const InvoicePDF = () => {
                                 <Text style={styles.total_amount}>Total Payable (in ):</Text>
                                 <Text style={styles.price}>{TotalAmount}.00</Text>
                             </View>
-                            {/* <View style={styles.cash}>
-                                <Text style={styles.total_amount}>Payment Method:</Text>
-                                <Text style={styles.price}>{payment}</Text>
-                            </View> */}
+                            <View style={styles.cash}>
+                                <Text style={styles.total_amount}>Previous Balance:</Text>
+                                <Text style={styles.price}>{customerDetails.AccountBalance}.00</Text>
+                            </View>
+                            <View style={styles.cash}>
+                                <Text style={styles.total_amount}>Total Balance:</Text>
+                                <Text style={styles.price}>{customerDetails.AccountBalance + TotalAmount}.00</Text>
+                            </View>
                             <View style={styles.words}>
                                 <Text>Amount In Words: {numberToWords(TotalAmount)} only</Text>
                             </View>

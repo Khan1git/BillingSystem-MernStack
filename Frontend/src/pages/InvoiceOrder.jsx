@@ -633,7 +633,7 @@ const handleUpdate = async (e) => {
                   <th>Product Name</th>
                   <th>Quantity</th>
                   <th>Price</th>
-                  {/* <th>Unit</th> */}
+                  <th>Total</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -647,7 +647,7 @@ const handleUpdate = async (e) => {
                     <td>{products.find(product => product._id === data.productId)?.productName}</td>
                     <td>{data.quantity} </td>
                     <td>{data.price} </td>
-                    {/* <td>{data.unit ? data.unit : "others"}</td> */}
+                    <td>{data.quantity * data.price}</td>
                     <td onClick={(e) => handleDelete(index)} ><XCircle size={16} /></td>
                   </tr>
                 ))}
