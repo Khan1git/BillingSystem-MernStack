@@ -470,7 +470,7 @@ const handleUpdate = async (e) => {
       quantity: data.quantity,
       price: data.price,
       discount: data.discount,
-      unit: data.unit
+      unit:  products.find(product => product._id === data.productId)?.unit,
     })),
     paid: paid,
   };

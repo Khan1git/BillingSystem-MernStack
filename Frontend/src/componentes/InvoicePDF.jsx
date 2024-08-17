@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFViewer, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import Navbar from '../componentes/Navbar'
+import react from '../assets/react.svg'
+
+import logo from '../assets/logo.png'
+
 
 const styles = StyleSheet.create({
     page: {
@@ -27,19 +31,21 @@ const styles = StyleSheet.create({
         display: 'flex',
         textAlign: 'start',
         width: '100%',
+        
     },
     part2: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 10,
+        marginTop: 20
     },
     heading: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: "center",
         // fontSize: 16,
-        marginBottom: 10,
+        marginBottom: 4,
         textDecoration: 'underline',
         textAlign: 'center',
         fontSize: '10px'
@@ -122,7 +128,31 @@ const styles = StyleSheet.create({
         // gap: '90px'
         marginTop: '1px',
         // margin: "1rem"
-    }
+    },
+    container: {
+        flexDirection: 'row', // Align children in a row
+        alignItems: 'center', // Vertically align items
+        gap: '10rem'
+        // gap: 120, // For web (or React Native Web), you can use this. For React Native, use marginRight/marginLeft instead.
+    },
+    companyDetails: {
+        display: 'flex',
+        justifyContent: 'center',
+        textAlign: 'center',
+        width: '100%',
+        gap: 2,
+        fontStyle: 'bold',
+        // border: '1px solid red',
+        marginLeft: -30, 
+        // alignContent: 'center',
+        alignItems: 'center'
+    },
+    logo: {
+        width: 50,  // Set your desired logo width
+        height: 50, // Set your desired logo height
+        marginRight: 16, // Space between the logo and the company details
+      },
+
 });
 
 const numberToWords = (num) => {
@@ -155,7 +185,7 @@ const InvoicePDF = () => {
 
 
     // -------------------- SHOWING THE COMPANY DATA
-    
+
     const showCompanyDate = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/company/get', { method: "GET" });
@@ -270,15 +300,22 @@ const InvoicePDF = () => {
             <Document>
                 <Page size="A4" style={styles.page}>
                     <View style={styles.section}>
-                        <View style={styles.companyDetails}>
-                            <Text style={styles.heading}>Company Details</Text>
-                            {companyData.length > 0 && (
-                                <>
-                                    <Text>{companyData[0].companyName}</Text>
-                                    <Text>{companyData[0].Address}</Text>
-                                    <Text>Phone No: {companyData[0].phone}</Text>
-                                </>
-                            )}
+                        <View style={styles.container}>
+                            <View>
+                            <Image source={logo} style={styles.logo} />
+                            </View>
+                            <View style={styles.section}>
+                                <View style={styles.companyDetails}>
+                                    <Text style={styles.heading}>Company Details</Text>
+                                    {companyData.length > 0 && (
+                                        <>
+                                            <Text>{companyData[0].companyName}</Text>
+                                            <Text>{companyData[0].Address}</Text>
+                                            <Text>Phone No: {companyData[0].phone}</Text>
+                                        </>
+                                    )}
+                                </View>
+                            </View>
                         </View>
                         <View style={styles.invoiceDetails}>
                             <View style={styles.part2}>
@@ -321,11 +358,11 @@ const InvoicePDF = () => {
                             </View>
                             <View style={styles.cash}>
                                 <Text style={styles.total_amount}>Previous Balance:</Text>
-                                <Text style={styles.price}>{customerDetails.AccountBalance}.00</Text>
+                                <Text style={styles.price}>{customerDetails.AccountBalance - TotalAmount}.00</Text>
                             </View>
                             <View style={styles.cash}>
                                 <Text style={styles.total_amount}>Total Balance:</Text>
-                                <Text style={styles.price}>{customerDetails.AccountBalance + TotalAmount}.00</Text>
+                                <Text style={styles.price}>{customerDetails.AccountBalance }.00</Text>
                             </View>
                             <View style={styles.words}>
                                 <Text>Amount In Words: {numberToWords(TotalAmount)} only</Text>
@@ -339,7 +376,7 @@ const InvoicePDF = () => {
 
     return (
         <>
-        <Navbar/>
+            <Navbar />
             <PDFViewer style={{ width: '90vw', height: '98vh', backgroundColor: "black" }}>
                 {generateInvoice()}
             </PDFViewer>
