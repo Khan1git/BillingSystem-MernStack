@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         textAlign: 'start',
         width: '100%',
-        
+
     },
     part2: {
         display: 'flex',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         gap: 2,
         fontStyle: 'bold',
         // border: '1px solid red',
-        marginLeft: -30, 
+        marginLeft: -30,
         // alignContent: 'center',
         alignItems: 'center'
     },
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         width: 50,  // Set your desired logo width
         height: 50, // Set your desired logo height
         marginRight: 16, // Space between the logo and the company details
-      },
+    },
 
 });
 const numberToWords = (num) => {
@@ -174,7 +174,7 @@ function TempInvoicePage() {
     const [customerDetails, setCustomerDetails] = useState([])
     const [payment, setPayment] = useState("cash")
     // console.log(orderData)
- 
+
 
     // -------------------- SHOWING THE COMPANY DATA
 
@@ -227,9 +227,9 @@ function TempInvoicePage() {
             <Document>
                 <Page size="A4" style={styles.page}>
                     <View style={styles.section}>
-                    <View style={styles.container}>
+                        <View style={styles.container}>
                             <View>
-                            <Image source={logo} style={styles.logo} />
+                                <Image source={logo} style={styles.logo} />
                             </View>
                             <View style={styles.section}>
                                 <View style={styles.companyDetails}>
@@ -285,7 +285,7 @@ function TempInvoicePage() {
                                 <Text style={styles.method}>{payment}</Text>
                             </View> */}
                             <View style={styles.words}>
-                                <Text>Amount In Words:{numberToWords(TotalAmount)} only</Text>
+                                <Text>Amount In Words:{numberToWords(TotalAmount)}only</Text>
                             </View>
                         </View>
                     </View>
@@ -296,7 +296,7 @@ function TempInvoicePage() {
 
     return (
         <>
-        <Navbar/>
+            <Navbar />
             <PDFViewer style={{ width: '90vw', height: '100vh', backgroundColor: "black" }}>
                 {generateInvoice()}
             </PDFViewer>
