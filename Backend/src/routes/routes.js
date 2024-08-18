@@ -7,6 +7,7 @@ import { DeleteById, UpdateOrder, addOrder, countAllOrders, countOrders, findUnp
 import { addTempOrder, deleteTempOrderById, getAllTempInvoices, getTempById, updateTempOrder } from '../controllers/tempOrderController.js'
 import { addPayment, deletePaymentById, findAllPaymnets, findPaymentById, updatePaymentByid } from '../controllers/paymentController.js'
 import validateObjectId from '../middlewares/middleware.js'
+import uploads from '../middlewares/uploads.js'
 
 const router = express.Router()
 
@@ -30,8 +31,8 @@ router.delete('/product/delete/:id', deleteProduct)
 router.put('/product/update/:id', updateProductById)
 
 // ----------------- COMPANY ROUTES ----------------------
-router.post('/company/add', addCompanyDetails)
-router.put('/company/update/:id', UpdateByid)
+router.post('/company/add', uploads.single('logo'), addCompanyDetails)
+router.put('/company/update/:id', uploads.single('logo'), UpdateByid); 
 router.get('/company/get', showDetails)
 router.get('/company/getbyid/:id', getCompanyById)
 

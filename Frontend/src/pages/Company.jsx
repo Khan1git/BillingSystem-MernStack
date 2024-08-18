@@ -14,32 +14,49 @@ const Company = () => {
     const [isCompanyDataAvailable, setIsCompanyDataAvailable] = useState(false);
     const [data, setData] = useState([]);
     const [id, setId] = useState('');
+    const [file, setFile] = useState('')
 
     const navigate = useNavigate();
 
+    // ------------------- THE ADD API
     const handleAddCompany = async (e) => {
         e.preventDefault();
+    
+        const formData = new FormData();
+        formData.append('companyName', companyName);
+        formData.append('email', email);
+        formData.append('Address', Address);
+        formData.append('phone', phone);
+        formData.append('logo', file); // Assuming `logo` is the image file you want to upload
+    
         try {
-            const response = await fetch("http://localhost:5000/api/company/add", {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify({ companyName, email, Address, phone })
-            });
-
-            if (response.ok) {
-                toast.success('Company Data Added successfully');
-                setIsCompanyDataAvailable(true);
-                showAllDetails();
-            } else {
-                toast.error("Failed to add company. Please provide all data.");
-            }
+            await toast.promise(
+                fetch("http://localhost:5000/api/company/add", {
+                    method: "POST",
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        setIsCompanyDataAvailable(true);
+                        showAllDetails(); // Call function to refresh or show all details
+                        return response.json();
+                    } else {
+                        throw new Error("Failed to add company. Please provide all data.");
+                    }
+                }),
+                {
+                    pending: 'Adding company data...',
+                    success: 'Company Data Added successfully!',
+                    error: 'An error occurred while adding company data.'
+                }
+            );
         } catch (error) {
             console.log("Error adding company:", error);
             toast.error("An error occurred while adding company data.");
         }
     };
+    
+
+    // -------------- FETCHING THE COMPANY DATA -------------
 
     const showAllDetails = async () => {
         try {
@@ -53,12 +70,13 @@ const Company = () => {
                 const result = await response.json();
                 setData(result);
                 if (result.length > 0) {
-                    const firstCompany = result[0]; 
+                    const firstCompany = result[0];
                     setId(firstCompany._id);
                     setCompanyName(firstCompany.companyName);
                     setAddress(firstCompany.Address);
                     setEmail(firstCompany.email);
                     setPhone(firstCompany.phone);
+                    setFile(firstCompany.logo)
                     setIsCompanyDataAvailable(true);
                 } else {
                     setIsCompanyDataAvailable(false);
@@ -79,33 +97,45 @@ const Company = () => {
         showAllDetails();
     }, []);
 
+
+
     const handleUpdate = async (e) => {
         e.preventDefault();
+    
+        const formData = new FormData();
+        formData.append('companyName', companyName);
+        formData.append('email', email);
+        formData.append('address', Address);
+        formData.append('phone', phone);
+        formData.append('logo', file); // Assuming `logo` is the image file you want to upload
+    
         try {
-            const response = await fetch(`http://localhost:5000/api/company/update/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify({ companyName, email, Address, phone })
-            });
-
-            if (response.ok) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'Data Updated Successfully',
-                    icon: 'success',
-                    confirmButtonText: 'Cool'
-                });
-                showAllDetails(); 
-            } else {
-                toast.error("Failed to update company");
-            }
+            // Wrap the fetch request with toast.promise
+            await toast.promise(
+                fetch(`http://localhost:5000/api/company/update/${id}`, {
+                    method: "PUT",
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json(); // or any other response handling you need
+                    } else {
+                        throw new Error('Failed to update company');
+                    }
+                }),
+                {
+                    pending: 'Updating company information...',
+                    success: 'Company information updated successfully!',
+                    error: 'An error occurred while updating the company'
+                }
+            );
+    
+            showAllDetails(); // Call this function to refresh the data or navigate as needed
         } catch (error) {
             console.error("Error updating company:", error);
-            // toast.error("An error has occurred");
+            toast.error('An error occurred while updating the company');
         }
     };
+    
 
     return (
         <>
@@ -115,6 +145,15 @@ const Company = () => {
                     <div className="side1">
                         <h1>Company Details</h1>
                         <form onSubmit={isCompanyDataAvailable ? handleUpdate : handleAddCompany}>
+                            <label htmlFor="file">Upload Logo</label>
+                            <div className='logo_field'> 
+                                <input
+                                    type="file"
+                                    placeholder='Name'
+                                    onChange={(e) => setFile(e.target.files[0])}
+                                />
+                                <img src={file} alt="uplode logo" />
+                            </div>
                             <input
                                 type="text"
                                 placeholder='Name'

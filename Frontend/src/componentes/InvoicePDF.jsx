@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         textAlign: 'start',
         width: '100%',
-        
+
     },
     part2: {
         display: 'flex',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         gap: 2,
         fontStyle: 'bold',
         // border: '1px solid red',
-        marginLeft: -30, 
+        marginLeft: -30,
         // alignContent: 'center',
         alignItems: 'center'
     },
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         width: 50,  // Set your desired logo width
         height: 50, // Set your desired logo height
         marginRight: 16, // Space between the logo and the company details
-      },
+    },
 
 });
 
@@ -302,7 +302,9 @@ const InvoicePDF = () => {
                     <View style={styles.section}>
                         <View style={styles.container}>
                             <View>
-                            <Image source={logo} style={styles.logo} />
+                                {companyData.length > 0 && companyData[0].logo && (
+                                    <Image source={{ uri: companyData[0].logo }} style={styles.logo} />
+                                )}
                             </View>
                             <View style={styles.section}>
                                 <View style={styles.companyDetails}>
@@ -362,7 +364,7 @@ const InvoicePDF = () => {
                             </View>
                             <View style={styles.cash}>
                                 <Text style={styles.total_amount}>Total Balance:</Text>
-                                <Text style={styles.price}>{customerDetails.AccountBalance }.00</Text>
+                                <Text style={styles.price}>{customerDetails.AccountBalance}.00</Text>
                             </View>
                             <View style={styles.words}>
                                 <Text>Amount In Words: {numberToWords(TotalAmount)} only</Text>
