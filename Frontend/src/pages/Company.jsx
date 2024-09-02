@@ -110,14 +110,14 @@ const Company = () => {
         formData.append('logo', file); // Assuming `logo` is the image file you want to upload
     
         try {
-            // Wrap the fetch request with toast.promise
+           
             await toast.promise(
-                fetch(`http://localhost:5000/api/company/update/${id}`, {
+                fetch(`http://localhost:3000/api/auth/findBy-id/${id}`, {
                     method: "PUT",
                     body: formData
                 }).then(response => {
                     if (response.ok) {
-                        return response.json(); // or any other response handling you need
+                        return response.json(); 
                     } else {
                         throw new Error('Failed to update company');
                     }
@@ -129,7 +129,6 @@ const Company = () => {
                 }
             );
     
-            showAllDetails(); // Call this function to refresh the data or navigate as needed
         } catch (error) {
             console.error("Error updating company:", error);
             toast.error('An error occurred while updating the company');

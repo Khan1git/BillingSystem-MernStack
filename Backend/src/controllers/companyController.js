@@ -32,19 +32,12 @@ export const UpdateByid = async (req, res) => {
         const { id } = req.params;
         let updatedData = { ...req.body };
 
-        // Check if a new file is uploaded
         if (req.file) {
-            // Upload the new image to Cloudinary
             const upload = await cloudinary.uploader.upload(req.file.path);
-
-            // Update the logo URL in the data to be updated
             updatedData.logo = upload.secure_url;
         }
 
-        // Update the company details by ID
         const getDetails = await companyModel.findByIdAndUpdate(id, updatedData, { new: true });
-
-        // Send the updated details in response
         res.status(200).json(getDetails);
     } catch (error) {
         console.error("Error updating company details:", error);
