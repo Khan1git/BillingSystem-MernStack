@@ -229,7 +229,9 @@ function TempInvoicePage() {
                     <View style={styles.section}>
                         <View style={styles.container}>
                             <View>
-                                <Image source={logo} style={styles.logo} />
+                            {companyData.length > 0 && companyData[0].logo && (
+                                    <Image source={{ uri: companyData[0].logo }} style={styles.logo} />
+                                )}
                             </View>
                             <View style={styles.section}>
                                 <View style={styles.companyDetails}>

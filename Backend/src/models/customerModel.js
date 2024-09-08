@@ -1,27 +1,27 @@
 import mongoose from 'mongoose'
 
 const customerSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
-    email:{
+    email: {
         type: String,
         required: true
     },
-    Address:{
+    Address: {
         type: String,
         required: true
     },
-    phone:{
+    phone: {
         type: Number,
         required: true
     },
-    AccountBalance:{
+    AccountBalance: {
         type: Number,
-        required: true
+        default: 0
     }
-}, {timestamps: true})
+}, { timestamps: true })
 
 const CustomerModel = mongoose.model("customerModel", customerSchema)
 export default CustomerModel

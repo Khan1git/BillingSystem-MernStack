@@ -15,20 +15,21 @@ const Company = () => {
     const [data, setData] = useState([]);
     const [id, setId] = useState('');
     const [file, setFile] = useState('')
+    console.log(file)
 
     const navigate = useNavigate();
 
     // ------------------- THE ADD API
     const handleAddCompany = async (e) => {
         e.preventDefault();
-    
+
         const formData = new FormData();
         formData.append('companyName', companyName);
         formData.append('email', email);
         formData.append('Address', Address);
         formData.append('phone', phone);
         formData.append('logo', file); // Assuming `logo` is the image file you want to upload
-    
+
         try {
             await toast.promise(
                 fetch("http://localhost:5000/api/company/add", {
@@ -37,7 +38,7 @@ const Company = () => {
                 }).then(response => {
                     if (response.ok) {
                         setIsCompanyDataAvailable(true);
-                        showAllDetails(); // Call function to refresh or show all details
+                        showAllDetails();
                         return response.json();
                     } else {
                         throw new Error("Failed to add company. Please provide all data.");
@@ -54,7 +55,7 @@ const Company = () => {
             toast.error("An error occurred while adding company data.");
         }
     };
-    
+
 
     // -------------- FETCHING THE COMPANY DATA -------------
 
@@ -101,23 +102,22 @@ const Company = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-    
+
         const formData = new FormData();
         formData.append('companyName', companyName);
         formData.append('email', email);
         formData.append('address', Address);
         formData.append('phone', phone);
-        formData.append('logo', file); // Assuming `logo` is the image file you want to upload
-    
+        formData.append('logo', file);
+
         try {
-           
             await toast.promise(
-                fetch(`http://localhost:3000/api/auth/findBy-id/${id}`, {
+                fetch(`http://localhost:5000/api/company/update/${id}`, {
                     method: "PUT",
                     body: formData
                 }).then(response => {
                     if (response.ok) {
-                        return response.json(); 
+                        return response.json();
                     } else {
                         throw new Error('Failed to update company');
                     }
@@ -128,13 +128,13 @@ const Company = () => {
                     error: 'An error occurred while updating the company'
                 }
             );
-    
         } catch (error) {
             console.error("Error updating company:", error);
             toast.error('An error occurred while updating the company');
         }
     };
-    
+
+
 
     return (
         <>
@@ -145,7 +145,7 @@ const Company = () => {
                         <h1>Company Details</h1>
                         <form onSubmit={isCompanyDataAvailable ? handleUpdate : handleAddCompany}>
                             <label htmlFor="file">Upload Logo</label>
-                            <div className='logo_field'> 
+                            <div className='logo_field'>
                                 <input
                                     type="file"
                                     placeholder='Name'
