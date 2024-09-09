@@ -44,7 +44,7 @@ const Graph = () => {
               <Tooltip />
               <Legend />
               <Bar dataKey="quantity" fill="#8884d8" />
-              <Bar dataKey="saleprice" fill="#82ca9d" />
+              {/* <Bar dataKey="saleprice" fill="#82ca9d" /> */}
             </BarChart>
           </ResponsiveContainer>
       

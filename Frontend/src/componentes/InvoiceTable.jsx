@@ -12,7 +12,7 @@ const InvoiceTable = () => {
 
 
   // console.log(price)
-  console.log(orders)
+  // console.log(orders)
 
   const ShowAllorders = async () => {
     try {

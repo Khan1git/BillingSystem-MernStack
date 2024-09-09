@@ -20,6 +20,7 @@ import Payment from './pages/Payment';
 import TemorderPage from './pages/TemorderPage';
 import TempInvoicePage from './pages/TempInvoicePage';
 import TempInvoiceDisplayPage from './pages/TempInvoiceDisplayPage';
+import DailySalesReport from './componentes/DailySalesReport';
 
 const App = () => {
   return (
@@ -47,6 +48,9 @@ const App = () => {
         <Route path="/temp-order/:id" element={<TemorderPage />} />
         <Route path="/temp-invoice/:id" element={<TempInvoicePage />} />
         <Route path="/show-temp-invoices" element={<TempInvoiceDisplayPage />} />
+
+        {/* ---------------------- THE TODAY SALES PART */}
+        <Route path="/show-today-sales" element={< DailySalesReport />} />
       </Routes>
     </Router>
   )

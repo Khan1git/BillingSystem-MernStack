@@ -101,7 +101,9 @@ const Sidebar = () => {
   const [sales, setSales] = useState('')
   const [unpaidOrders, setUnpaidOrders] = useState([]);
   // console.log(object)
-  const [unpaid, setUnpaid]  = useState("")
+  const [unpaid, setUnpaid] = useState("")
+  const [todaySales, setTodaySales] = useState([])
+  console.log(todaySales)
 
   const showOrders = async () => {
     try {
@@ -133,6 +135,10 @@ const Sidebar = () => {
       });
       setUnpaid(unpaidTotalSales)
 
+      const today = new Date().toISOString().split('T')[0];
+      const TodaySales = result.filter(item => new Date(item.createdAt).toISOString().split('T')[0] === today);
+      setTodaySales(TodaySales);
+      
     } catch (error) {
       // console.error('Error sending data:', error);
       toast.error('An error occurred while sending data');
@@ -150,9 +156,14 @@ const Sidebar = () => {
       <div className="contnet">
         <div className="head">
           <h1>Welcome Admin</h1>
-          <Link to={'/company'}>
-            <button>Company Info</button>
-          </Link>
+          <div>
+            <Link to={'/show-today-sales'}>
+              <button>Daily Sales Report</button>
+            </Link>
+            <Link to={'/company'}>
+              <button>Company Info</button>
+            </Link>
+          </div>
         </div>
         {/* <marquee behavior="scroll" direction="left" scrollamount="10">Almost Completed Adding Some More features</marquee> */}
         <div className="cards">
@@ -182,7 +193,7 @@ const Sidebar = () => {
             <Graph />
           </div>
           <div className="customer">
-            <table  width="100%" className='client_table'>
+            <table width="100%" className='client_table'>
               <thead>
                 <tr>
                   <th>No</th>

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2'
 
-import { XCircle, Pen, UserRoundSearch} from 'lucide-react'
+import { XCircle, Pen, UserRoundSearch } from 'lucide-react'
 
 
 function CustomerPage() {
@@ -76,7 +76,8 @@ function CustomerPage() {
             })
             const result = await getCustomers.json()
             const filteredItems = result.filter(item =>
-                item.name.toLowerCase().includes(search.toLowerCase())
+                (item.name && item.name.toLowerCase().includes(search.toLowerCase())) ||
+                (item.Address && item.Address.toLowerCase().includes(search.toLowerCase()))
             );
             setData(filteredItems)
 
@@ -242,7 +243,7 @@ function CustomerPage() {
                         <input type="text" placeholder="Customer Name" value={name} onChange={(e) => setname(e.target.value)} />
                         <input type="text" placeholder="Email" value={email} onChange={(e) => setemal(e.target.value)} />
                         <input type="text" placeholder="Address" value={Address} onChange={(e) => setAddress(e.target.value)} />
-                        <input type="Number" placeholder="P No"  value={phone} onChange={(e) => setPhone(e.target.value)} />
+                        <input type="Number" placeholder="P No" value={phone} onChange={(e) => setPhone(e.target.value)} />
                         <input type="Number" placeholder="Account Balance" value={AccountBalance} onChange={(e) => setAccountBalance(e.target.value)} />
                     </div>
                     <div class="customer_tables">
@@ -275,7 +276,7 @@ function CustomerPage() {
                                         <td>${customer.AccountBalance}</td>
                                         <td className='icon_style'><XCircle size={16} onClick={() => handleDelete(customer._id)} /></td>
                                         <td className='icon_style'><Pen size={16} onClick={() => handleEdit(customer)} /></td>
-                                        <td className='icon_style'><UserRoundSearch  size={16} onClick={()=> navigate(`/customer-details/${customer._id}`)}/></td>
+                                        <td className='icon_style'><UserRoundSearch size={16} onClick={() => navigate(`/customer-details/${customer._id}`)} /></td>
                                     </tr>
                                 ))}
                             </tbody>
